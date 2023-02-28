@@ -1,0 +1,212 @@
+img {
+    width: 100%;
+    max-height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/*********************************************************     Navbar    *********************************************************/
+
+nav {
+    width: 4.5rem;
+    height: 100vh;
+    position: fixed;
+    background-color: grey;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+nav .logo {
+    padding: 1rem;
+    /* border: orange solid 2px; */
+    border-bottom: white solid 3px;
+}
+
+nav .nav-items {
+    /* border: red solid 1px; */
+    padding: 1rem;
+    height: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
+
+
+.main {
+    padding-left: 5rem;
+}
+
+/*********************************************************     Main    *********************************************************/
+
+.hero {
+    height: 50vh;
+    background-image: url(img/pexels-pixabay-45205.jpg);
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 8rem;
+}
+
+
+
+
+
+/*********************************************************     Fonts    *********************************************************/
+
+p {
+    line-height: 1.45;
+    margin-bottom: 3.5rem !important;
+}
+
+
+
+
+/*********************************************************     Buttons    *********************************************************/
+
+.btn-1st {
+    border: none;
+    outline: none;
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    padding: 1.5rem 2rem;
+    border-radius: 50px;
+    color: white;
+    font-size: 1rem;
+    box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+    transition: all 0.2s ease-in;
+    text-decoration: none;
+}
+
+.btn-1st:hover {
+    box-shadow: 0px 5px 1rem rgba(255, 94, 98, 0.5);
+}
+
+
+
+
+
+
+/*********************************************************     Cards    *********************************************************/
+
+.cards-flex {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    /* max-width: 820px; */
+}
+
+
+/********************     Card A   *********************/
+
+.card {
+    background: #fff;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    position: relative;
+    margin-left: 5rem;
+    margin-bottom: 8rem;
+}
+
+.card-container {
+    padding: 6rem 4rem 5rem 4rem;
+}
+
+.card-img-frame {
+    height: 110px;
+    width: 110px;
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    z-index: 10;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
+    position: absolute;
+    left: -10%;
+    top: -13%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card img {
+    height: 8.3rem;
+    width: 8.3rem;
+    position: relative;
+    border-radius: 100%;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+
+/********************     Card B   *********************/
+
+    /* styling of whole card */
+.card-B {
+    margin-right: 25px;
+    transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+    background-color: #fff;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+
+    width: 33.3%;
+}
+
+.card-B__img {
+    transition: 0.2s all ease-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    position: absolute;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    top: 0;
+
+    height: 235px;
+
+    background-image: url('https://images.pexels.com/photos/307008/pexels-photo-307008.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+}
+
+
+    /* this header height needs to be exact as __img height! */
+.card-B__HEADER {
+    height: 235px;
+}
+
+.card-B__FOOTER {
+    z-index: 2;
+    background-color: #fff;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 5px 24px 24px 24px;
+
+    font-size: 12px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+}
+
+.card-B__FOOTER h2{
+    font-family: 'Roboto Slab', serif;}
+
+
+    /* cards zooms 1.1x bigger when hovering */
+.card-B:hover {
+    /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    transform: scale(1.10, 1.10);
+    transition: 0.1s all ease-out;
+}
+
+    /* image with specific height covers full card when hovering */
+.card-B:hover .card-B__img {
+    height: 100%;
+    opacity: 0.4 ;
+}
+
