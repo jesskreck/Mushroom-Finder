@@ -9,8 +9,8 @@ function fetchMushrooms() {
       createTags(result);
 
       // ab hier testing
-      checkSpeisepilz(result);
-      activateFilters;
+      // buildDetailsPage(result);
+      // checkSpeisepilz(result);
     })
     .catch(function (error) {
       console.log(error);
@@ -83,8 +83,70 @@ function createCards(array) {
     
     // add #id
     card.id = array[i][0];
+  } 
+}
+
+//////////////////////////////////////////////// filling detail page  ////////////////////////////////////////////////
+
+document.querySelectorAll(".card-B").forEach(item => {
+  item.addEventListener("click", buildDetailsPage);
+});
+
+
+function buildDetailsPage(array) {
+  // CONDITION MISSING - only do following if array[i] matches card.id
+  for (let i = 0; i < array.length; i++) {
+    const main = document.getElementsByClassName("main");
+    const modal = document.createElement("article");
+    main.append(modal);
+    modal.classList.add("modal")
+
+    // add image
+    const modalImg = document.createElement("div");
+    modal.append(modalImg);
+    modalImg.classList.add("modal__img");
+    const img = document.createElement("img");
+    modalImg.append(img);
+    img.scr = "https://www.pilzradar.de/" + array[i][5];
+    
+    // add names
+    const h1 = document.createElement("h1");
+    modal.append(h1);
+    h1.innerText = array[i][2];
+    const h3 = document.createElement("h3");
+    modal.append(h3);
+    h3.innerText = array[i][3];
+
+    // generating tags
+    const tagHolder = document.createElement("div");
+    modal.append(tagHolder);
+    tagHolder.classList.add("modal__tag-holder");
+    // // try to build this as a loop instead of having the three generated after each other
+    const tagVerwendung = document.createElement("div");
+    tagHolder.append(tagVerwendung);
+    tagVerwendung.classList.add("btn-tag");
+    tagVerwendung.innerText = array[i][8];
+    const tagVorkommen = document.createElement("div");
+    tagHolder.append(tagVorkommen);
+    tagVorkommen.classList.add("btn-tag");
+    tagVorkommen.innerText = array[i][7];
+    const tagBundesland = document.createElement("div");
+    tagHolder.append(tagBundesland);
+    tagBundesland.classList.add("btn-tag");
+    tagBundesland.innerText = array[i][4];
+
+    // adding description
+    const description = document.createElement("p");
+    modal.append(description);
+    description.innerText =
+      "gefunden von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ")" + "am " + array[i][1];
+    
   }
 }
+
+
+
+
 
 
 
@@ -143,13 +205,6 @@ function showOnlySpeisepilze(array) {
 
 const SpeisepilzFilter = document.getElementById("Speisepilz");
 
-
-
-
-
-function buildDetailsPage(array) {
-  
-}
 
 
 
