@@ -6,60 +6,198 @@ img {
 body {
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    padding-bottom: 5rem;
 }
 
 /*********************************************************     Navbar    *********************************************************/
 
-nav {
-    width: 4.5rem;
-    height: 100vh;
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    flex: 1 1 0;
+    padding: 2rem 1rem;
+    background-color: rgb(228, 228, 228);
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        min-width: 20%;
+        max-width: 25%;
+    }
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        min-width: 15%;
+        max-width: 20%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .sidebar {
+        min-width: 10%;
+        max-width: 220px;
+    }
+}
+
+.sidebar h3 {
+    color: rgba(0, 0, 0, 0.2);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+}
+
+.sidebar .menu {
+    margin: 0 -1rem;
+}
+
+.sidebar .menu .menu-item {
+    display: block;
+    padding: 1em;
+    text-decoration: none;
+    transition: 0.2s linear;
+}
+
+.sidebar .menu .menu-item:hover,
+.sidebar .menu .menu-item.is-active {
+    color: orange;
+    border-right: 5px solid orange;
+}
+
+.menu-toggle {
+    display: none;
     position: fixed;
-    background-color: grey;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
+    top: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 99px;
+    background-color: orange;
+    cursor: pointer;
 }
 
-nav .logo {
-    padding: 1rem;
-    /* border: orange solid 2px; */
-    border-bottom: white solid 3px;
+.hamburger {
+    position: relative;
+    top: calc(50% - 2px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
 }
 
-nav .nav-items {
-    /* border: red solid 1px; */
-    padding: 1rem;
-    height: 60%;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
+.hamburger span,
+.hamburger span::before,
+.hamburger span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 99px;
+    background-color: white;
+    transition-duration: .25s;
+}
+
+.hamburger span::before {
+    content: '';
+    top: -8px;
+}
+
+.hamburger span::after {
+    content: '';
+    top: 8px;
+}
+
+.menu-toggle.is-active .hamburger span {
+    transform: rotate(45deg);
+}
+
+.menu-toggle.is-active .hamburger span::before {
+    top: 0;
+    transform: rotate(0deg);
+}
+
+.menu-toggle.is-active .hamburger span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+
+
+@media (max-width: 767px) {
+    .menu-toggle {
+        display: block;
+        z-index: 1;
+    }
+
+    /* leave space for hamburger icon at top */
+    .main {
+        padding-top: 8rem;
+    }
+
+    .sidebar {
+        position: fixed;
+        z-index: 1;
+        left: -420px;
+        height: 100vh;
+        width: 50%;
+        transition: 0.2s linear;
+    }
+
+    .sidebar.is-active {
+        left: 0;
+    }
 }
 
 
 
-.main {
-    padding-left: 5rem;
-}
 
 /*********************************************************     Main    *********************************************************/
 
 .hero {
     height: 50vh;
-    background-image: url(img/pexels-pixabay-45205.jpg);
+    background-image: url(img/pexels-ameruverse-digital-marketing-media-1643401.jpg);
     background-size: cover;
-    background-position: center;
-    margin-bottom: 8rem;
+    background-position: bottom;
+    margin-bottom: 4rem;
 }
 
+.hero h1 {
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 0;
+    padding-top: 20vh;
+    padding-left: 6%;
+    font-size: 5em;
+}
 
+.container {
+    padding: 0 10% 5rem;
+}
 
-
+.tag-holder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    border-top: lightsalmon 1px solid;
+    padding: 1rem 0 2rem;
+}
 
 /*********************************************************     Fonts    *********************************************************/
 
+h1 {
+    font-family: 'Roboto Slab', serif;
+    padding-left: 3%;
+}
+
 p {
     line-height: 1.45;
-    margin-bottom: 3.5rem !important;
+    margin-bottom: 3.5rem;
 }
 
 
@@ -85,9 +223,15 @@ p {
 }
 
 
+.btn-tag {
+    border-radius: 99px;
+    border: grey 1px solid;
+    padding: 0.3em 0.8em;
+}
 
-
-
+.btn-tag-active{
+    cursor: pointer;
+}
 
 /*********************************************************     Cards    *********************************************************/
 
@@ -145,7 +289,7 @@ p {
 
 /********************     Card B   *********************/
 
-    /* styling of whole card */
+/* styling of whole card */
 .card-B {
     margin-right: 25px;
     transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
@@ -156,6 +300,7 @@ p {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 
     width: 33.3%;
+
 }
 
 .card-B__img {
@@ -170,12 +315,10 @@ p {
     top: 0;
 
     height: 235px;
-
-    background-image: url('https://images.pexels.com/photos/307008/pexels-photo-307008.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 }
 
 
-    /* this header height needs to be exact as __img height! */
+/* this header height needs to be exact as __img height! */
 .card-B__HEADER {
     height: 235px;
 }
@@ -192,11 +335,12 @@ p {
     font-weight: 500;
 }
 
-.card-B__FOOTER h2{
-    font-family: 'Roboto Slab', serif;}
+.card-B__FOOTER h2 {
+    font-family: 'Roboto Slab', serif;
+}
 
 
-    /* cards zooms 1.1x bigger when hovering */
+/* cards zooms 1.1x bigger when hovering */
 .card-B:hover {
     /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
@@ -204,9 +348,53 @@ p {
     transition: 0.1s all ease-out;
 }
 
-    /* image with specific height covers full card when hovering */
+/* image with specific height covers full card when hovering */
 .card-B:hover .card-B__img {
     height: 100%;
-    opacity: 0.4 ;
+    opacity: 0.4;
 }
+
+
+/********************     Card Fullscreen   *********************/
+
+/* styling of whole card */
+.card-full {
+    margin: 5rem;
+
+    /* transition: all .4s cubic-bezier(0.175, 0.885, 0, 1); */
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.card-full h1 {
+    font-size: 2em;
+    padding-left: 2rem;
+    margin-bottom: 0;
+}
+
+.card-full h3 {
+    font-size: 1.2em;
+    padding: 0 2rem 2rem;
+}
+
+.card-full p {
+    font-size: 1em;
+    padding: 2rem 2rem 3rem;
+}
+
+.card-full__img img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.card-tag-holder {
+    margin: 1rem 2rem;
+    display: flex;
+    gap: 1em;
+    padding: 1.5rem 0;
+    border-top: lightsalmon 1px solid;
+    border-bottom: lightsalmon 1px solid;
+}
+
 

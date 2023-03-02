@@ -6,59 +6,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
     <title>Document</title>
 </head>
 
 <body>
 
-    <nav>
-        <div class="logo">
-            <img src="img/mushroom.svg" alt="Logo">
-            </img>
-        </div>
-        <div class="nav-items">
-            <div>
-                <a href="index.html">
-                    <img src="img/home.svg" alt="Home">
-                </a>
-            </div>
-            <div>
-                <a href="wissen.html">
-                    <img src="img/knowhow.svg" alt="Knowhow">
-                </a>
-            </div>
-            <div>
-                <a href="pilzfunde.html">
-                    <img src="img/mushroom.svg" alt="Pilzfunde">
-                </a>
-            </div>
-            <div>
-                <a href="sammelkorb.html">
-                    <img src="img/basket.svg" alt="Sammelkorb">
-                </a>
+    <div class="app">
+
+        <div class="menu-toggle">
+            <div class="hamburger">
+                <span></span>
             </div>
         </div>
 
-    </nav>
+        <aside class="sidebar">
+            <h3>Menü</h3>
+
+            <nav class="menu">
+                <a href="index.html" class="menu-item">Home</a>
+                <a href="" class="menu-item">Wissen</a>
+                <a href="pilzfunde.html" class="menu-item is-active">Pilzfunde</a>
+                <a href="details.html" class="menu-item">Details</a>
+                <a href="" class="menu-item">Sammelkorb</a>
+            </nav>
+        </aside>
 
 
 
 
 
-    <div class="main">
+        <div class="main">
 
 
-        <h1>Gallery</h1>
-        <div id="gallery"></div>
+            <div class="hero">
+                <h1>Pilzfunde</h1>
+            </div>
+
+            <div class="container">
+                <p>Sehen Sie sich die Funde Ihrer Pilzfreunde und -freundinnen an. Über die Schaltflächen können Sie die
+                    Pilze nach Verwendung, Vorkommen und Bundesland filtern.</p>
+                <h3>Verwendung</h3>
+                <div class="tag-holder" id="verwendung">
+                </div>
+                <h3>Vorkommen</h3>
+                <div class="tag-holder" id="vorkommen">
+                    <div class="btn-tag">Sommer</div>
+                </div>
+                <h3>Bundesland</h3>
+                <div class="tag-holder" id="bundesland">
+                    <div class="btn-tag">Hessen</div>
+                </div>
+
+            </div>
+
+            <section class="cards-flex" id="mushroom-card-gallery">
 
 
 
-        <h1>Cards</h1>
-
-
-        <section class="cards-flex" id="mushroom-card-gallery">
+                <!-- EMPTY EXAMPLE FOR SMALL CARDS IN GALLERY created by createCards() in main.js
 
             <article class="card-B">
                 <div class="card-B__HEADER"></div>
@@ -73,23 +78,18 @@
                         <span> in </span>
                         <span>Ort</span>
                     </div>
-
                 </div>
-            </article>
+            </article> -->
 
 
 
 
 
 
-        </section>
+            </section>
 
-        <div id="cards"></div>
-
-
-
+        </div>
     </div>
-
 
     <!-- <script src="data.js"></script> -->
     <script src="main.js"></script>
