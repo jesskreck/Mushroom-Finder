@@ -4,9 +4,11 @@ function fetchMushrooms() {
       return response.json();
     })
     .then(function (result) {
+      const pilze = result
       console.log(result);
       createCards(result);
       createTags(result);
+      addEvents(pilze)
 
       // ab hier testing
       // buildDetailsPage(result);
@@ -65,9 +67,6 @@ function createCards(array) {
     cardImage.classList.add("card-B__img");
     let imgURL = "https://www.pilzradar.de/" + array[i][5];
     cardImage.style.cssText += `background-image:url(${imgURL})`;
-    
-    // add link to details page to image 
-    a.setAttribute("href", "details.html");
 
     // fill footer with details
     const footer = document.createElement("div");
@@ -82,24 +81,73 @@ function createCards(array) {
       "von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ")";
     
     // add #id
-    card.id = array[i][0];
+    // card.id = array[i][0];
+    card.id = i;
   } 
 }
 
+
 //////////////////////////////////////////////// filling detail page  ////////////////////////////////////////////////
 
-document.querySelectorAll(".card-B").forEach(item => {
-  item.addEventListener("click", buildDetailsPage);
-});
+// document.querySelectorAll(".card-B").forEach(item => {
+//   item.addEventListener("click", buildDetailsPage);
+// });
 
 
+
+
+
+const addEvents = (pilze) => {
+  // add exit function here
+  // const modal = document.querySelector(".modal")
+  // modal.addEventListener("click", () => {
+    
+  // })
+
+  const cards = document.querySelectorAll(".card-B")
+  cards.forEach((card) => {
+    card.addEventListener("click", (e) => {
+      console.log("ID ist:", e.target.parentElement.parentElement.id)
+
+      const pilzInfos = e.target.parentElement.parentElement.id;
+      console.log("Alle Infos:", pilze[pilzInfos]);
+
+      buildModal(pilze[pilzInfos])
+    })
+  })
+
+  const close = document.getElementById("close");
+  close.addEventListener("click", function () {
+    close.style.display = "none";
+    document.getElementById("modal").style.display = "none";
+  });
+}
+
+const buildModal = (blub) => {
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("close").style.display = "block";
+  document.getElementById("modalImg").src = "https://www.pilzradar.de/" + blub[5];
+  document.getElementById("modalName").innerText = blub[2];
+  document.getElementById("modalNameLatin").innerText = blub[3];
+  document.getElementById("modalTagVerwendung").innerText = blub.Verwendung;
+  document.getElementById("modalTagVorkommen").innerText = blub.Vorkommen;
+  document.getElementById("modalTagBundesland").innerText = blub.Bundesland;
+  document.getElementById("Sammler").innerText = blub.Sammler;
+  document.getElementById("Landkreis").innerText = blub.Landkreis;
+  document.getElementById("Bundesland").innerText = blub.Bundesland;
+  document.getElementById("Funddatum").innerText = blub.Funddatum;
+}
+  
+
+
+// ALTE FUNKTION
 function buildDetailsPage(array) {
   // CONDITION MISSING - only do following if array[i] matches card.id
   for (let i = 0; i < array.length; i++) {
-    const main = document.getElementsByClassName("main");
+    const main = document.getElementById("main");
     const modal = document.createElement("article");
     main.append(modal);
-    modal.classList.add("modal")
+    modal.classList.add("modal");
 
     // add image
     const modalImg = document.createElement("div");
@@ -107,7 +155,7 @@ function buildDetailsPage(array) {
     modalImg.classList.add("modal__img");
     const img = document.createElement("img");
     modalImg.append(img);
-    img.scr = "https://www.pilzradar.de/" + array[i][5];
+    img.src = "https://www.pilzradar.de/" + array[i][5];
     
     // add names
     const h1 = document.createElement("h1");
@@ -139,12 +187,10 @@ function buildDetailsPage(array) {
     const description = document.createElement("p");
     modal.append(description);
     description.innerText =
-      "gefunden von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ")" + "am " + array[i][1];
+      "gefunden von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ") " + "am " + array[i][1];
     
   }
 }
-
-
 
 
 
@@ -187,7 +233,7 @@ function createTags(array)
 
 
 
-SpeisepilzFilter.addEventListener("click", showOnlySpeisepilze);
+
 
 function checkSpeisepilz(array) {
   if (array.Verwendung == "Speisepilz")
@@ -203,12 +249,8 @@ function showOnlySpeisepilze(array) {
 }
 
 
-const SpeisepilzFilter = document.getElementById("Speisepilz");
-
-
-
-
-
+// const SpeisepilzFilter = document.getElementById("Speisepilz");
+// SpeisepilzFilter.addEventListener("click", showOnlySpeisepilze);
 
 
 

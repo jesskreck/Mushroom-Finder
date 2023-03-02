@@ -195,7 +195,7 @@ h1 {
     padding-left: 3%;
 }
 
-p {
+p :not(.modal) {
     line-height: 1.45;
     margin-bottom: 3.5rem;
 }
@@ -292,7 +292,7 @@ p {
 /* styling of whole card */
 .card-B {
     margin-right: 25px;
-    transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+    transition: 0.2s linear;
     background-color: #fff;
     position: relative;
     border-radius: 12px;
@@ -304,7 +304,7 @@ p {
 }
 
 .card-B__img {
-    transition: 0.2s all ease-out;
+    transition: 0.2s linear;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -362,12 +362,14 @@ p {
 /*********************************************************     Modal    *********************************************************/
 
 /* dark background that serves as back button  */
-.exit {
+.close {
+    display: none;
     background-color: rgba(20, 20, 20, 0.3);
-    position: absolute;
+    position: fixed;
     z-index: 1;
     width: 100%;
     height: 100%;
+    transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
 }
 
 
@@ -375,16 +377,16 @@ p {
 /* note: would have preferred position:relative with margin:auto but the z-index is not working on that. try to play around and come up with a good best practice for modals that should always be on top! */
 .modal {
     display: none;
-    position: absolute;
+    position: fixed;
+    left: 30%;
+    right: 20%;
     top: 2.5rem;
-    right: 15%;
-    max-width: 60%;
     z-index: 100;
 
-    /* transition: all .4s cubic-bezier(0.175, 0.885, 0, 1); */
+    transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
     background-color: #fff;
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .modal h1 {
@@ -395,12 +397,12 @@ p {
 
 .modal h3 {
     font-size: 1.2em;
-    padding: 0 2rem 2rem;
+    padding: 0 2rem 1rem;
 }
 
 .modal p {
     font-size: 1em;
-    padding: 2rem 2rem 3rem;
+    padding: 1rem 2rem 2rem;
 }
 
 .modal__img img {
