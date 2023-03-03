@@ -89,30 +89,18 @@ function createCards(array) {
 
 //////////////////////////////////////////////// filling detail page  ////////////////////////////////////////////////
 
-// document.querySelectorAll(".card-B").forEach(item => {
-//   item.addEventListener("click", buildDetailsPage);
-// });
-
-
-
-
 
 const addEvents = (pilze) => {
-  // add exit function here
-  // const modal = document.querySelector(".modal")
-  // modal.addEventListener("click", () => {
-    
-  // })
-
+  
   const cards = document.querySelectorAll(".card-B")
   cards.forEach((card) => {
     card.addEventListener("click", (e) => {
       console.log("ID ist:", e.target.parentElement.parentElement.id)
 
-      const pilzInfos = e.target.parentElement.parentElement.id;
-      console.log("Alle Infos:", pilze[pilzInfos]);
+      const pilzId = e.target.parentElement.parentElement.id;
+      console.log("Alle Infos:", pilze[pilzId]);
 
-      buildModal(pilze[pilzInfos])
+      buildModal(pilze[pilzId])
     })
   })
 
@@ -140,63 +128,68 @@ const buildModal = (blub) => {
   
 
 
-// ALTE FUNKTION
-function buildDetailsPage(array) {
-  // CONDITION MISSING - only do following if array[i] matches card.id
-  for (let i = 0; i < array.length; i++) {
-    const main = document.getElementById("main");
-    const modal = document.createElement("article");
-    main.append(modal);
-    modal.classList.add("modal");
+////// ALTE FUNKTIONEN ZUM ERSTELLEN DER DETAIL CARDS / MODALS
+// document.querySelectorAll(".card-B").forEach(item => {
+//   item.addEventListener("click", buildDetailsPage);})
 
-    // add image
-    const modalImg = document.createElement("div");
-    modal.append(modalImg);
-    modalImg.classList.add("modal__img");
-    const img = document.createElement("img");
-    modalImg.append(img);
-    img.src = "https://www.pilzradar.de/" + array[i][5];
+// function buildDetailsPage(array) {
+//   // CONDITION MISSING - only do following if array[i] matches card.id
+//   for (let i = 0; i < array.length; i++) {
+//     const main = document.getElementById("main");
+//     const modal = document.createElement("article");
+//     main.append(modal);
+//     modal.classList.add("modal");
+
+//     // add image
+//     const modalImg = document.createElement("div");
+//     modal.append(modalImg);
+//     modalImg.classList.add("modal__img");
+//     const img = document.createElement("img");
+//     modalImg.append(img);
+//     img.src = "https://www.pilzradar.de/" + array[i][5];
     
-    // add names
-    const h1 = document.createElement("h1");
-    modal.append(h1);
-    h1.innerText = array[i][2];
-    const h3 = document.createElement("h3");
-    modal.append(h3);
-    h3.innerText = array[i][3];
+//     // add names
+//     const h1 = document.createElement("h1");
+//     modal.append(h1);
+//     h1.innerText = array[i][2];
+//     const h3 = document.createElement("h3");
+//     modal.append(h3);
+//     h3.innerText = array[i][3];
 
-    // generating tags
-    const tagHolder = document.createElement("div");
-    modal.append(tagHolder);
-    tagHolder.classList.add("modal__tag-holder");
-    // // try to build this as a loop instead of having the three generated after each other
-    const tagVerwendung = document.createElement("div");
-    tagHolder.append(tagVerwendung);
-    tagVerwendung.classList.add("btn-tag");
-    tagVerwendung.innerText = array[i][8];
-    const tagVorkommen = document.createElement("div");
-    tagHolder.append(tagVorkommen);
-    tagVorkommen.classList.add("btn-tag");
-    tagVorkommen.innerText = array[i][7];
-    const tagBundesland = document.createElement("div");
-    tagHolder.append(tagBundesland);
-    tagBundesland.classList.add("btn-tag");
-    tagBundesland.innerText = array[i][4];
+//     // generating tags
+//     const tagHolder = document.createElement("div");
+//     modal.append(tagHolder);
+//     tagHolder.classList.add("modal__tag-holder");
+//     // // try to build this as a loop instead of having the three generated after each other
+//     const tagVerwendung = document.createElement("div");
+//     tagHolder.append(tagVerwendung);
+//     tagVerwendung.classList.add("btn-tag");
+//     tagVerwendung.innerText = array[i][8];
+//     const tagVorkommen = document.createElement("div");
+//     tagHolder.append(tagVorkommen);
+//     tagVorkommen.classList.add("btn-tag");
+//     tagVorkommen.innerText = array[i][7];
+//     const tagBundesland = document.createElement("div");
+//     tagHolder.append(tagBundesland);
+//     tagBundesland.classList.add("btn-tag");
+//     tagBundesland.innerText = array[i][4];
 
-    // adding description
-    const description = document.createElement("p");
-    modal.append(description);
-    description.innerText =
-      "gefunden von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ") " + "am " + array[i][1];
+//     // adding description
+//     const description = document.createElement("p");
+//     modal.append(description);
+//     description.innerText =
+//       "gefunden von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ") " + "am " + array[i][1];
     
-  }
-}
+//   }
+// }
 
 
 
 
 
 //////////////////////////////////////////////// creating tags ////////////////////////////////////////////////
+
+
 
 function createTags(array)
 {
@@ -215,17 +208,6 @@ function createTags(array)
     tag.id = item;
   } 
 }
-
-
-
-// function makeTagAsButton(array) {
-//   const buttons = document.querySelectorAll(".btn-tag");
-//   console.log(buttons);
-//   for (i = 0; i < buttons.length; i++)
-//   {
-//     buttons[i].id = "btnFilter" + i;
-//   };
-// }
 
 
 
@@ -249,8 +231,6 @@ function showOnlySpeisepilze(array) {
 }
 
 
-// const SpeisepilzFilter = document.getElementById("Speisepilz");
-// SpeisepilzFilter.addEventListener("click", showOnlySpeisepilze);
 
 
 
@@ -259,22 +239,13 @@ function showOnlySpeisepilze(array) {
 
 
 
+//////////////////////////////////////////////// accordion  ////////////////////////////////////////////////
 
+const accordion = document.getElementsByClassName('acc-item');
 
+for (i = 0; i < accordion.length; i++){
 
-
-
-
-//////////////// Get location and pilzfreund
-// const cards = document.getElementById("cards");
-
-// for (let i = 0; i < pilzradar.length; i++) {
-//   const mushroom = document.createElement("div");
-//   cards.append(mushroom);
-//   const name = document.createElement("h2");
-//   mushroom.append(name);
-//   name.innerText = pilzradar[i][2];
-//   const location = document.createElement("p");
-//   mushroom.append(location);
-//   location.innerText = pilzradar[i].Landkreis + ", " + pilzradar[i].Bundesland;
-// }
+    accordion[i].addEventListener('click', function () {
+        this.classList.toggle('active')
+    })
+    }
