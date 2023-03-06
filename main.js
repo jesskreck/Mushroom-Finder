@@ -4,11 +4,8 @@ function fetchMushrooms() {
       return response.json();
     })
     .then(function (result) {
-      const pilze = result
-      console.log(result);
-      createCards(result);
-      createTags(result);
-      addEvents(pilze)
+      // console.log(result);
+      controllerFunction(result);
 
       // ab hier testing
       // buildDetailsPage(result);
@@ -20,6 +17,73 @@ function fetchMushrooms() {
 }
 
 fetchMushrooms();
+
+
+
+//////////////////////////////////////////////// Controller & Events ////////////////////////////////////////////////
+
+const controllerFunction = (mushrooms) => {
+  createCards(mushrooms);
+  createTags(mushrooms);
+  addEvents(mushrooms);
+}
+
+
+const addEvents = (mushrooms) => {
+
+  let cardsVisible = document.querySelectorAll(".card-B");
+  console.log("visible", cardsVisible);
+
+  // close modal on click 
+  const close = document.getElementById("close");
+  close.addEventListener("click", function () {
+    close.style.display = "none";
+    document.getElementById("modal").style.display = "none";
+  })
+
+  // filter Speisepilze
+  // const speisepilzFilter = document.getElementById("Speisepilz");
+  // speisepilzFilter.addEventListener("click", (event) => {
+  //   console.log(event.target.id);
+  //   const filtered = mushrooms.filter((mushroom) => {
+  //     return mushroom.Verwendung === event.target.id;
+  //   })
+  //   console.log(filtered);
+  //   createCards(filtered);
+  // })
+
+  // filter btn-tag
+  const btnTag = Array.from(document.getElementsByClassName("btn-tag"));
+  console.log(btnTag);
+  btnTag.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      console.log(event.target.id);
+      const filtered = mushrooms.filter((mushroom) => {
+        return mushroom.Verwendung === event.target.id;
+      })
+      console.log(filtered);
+      createCards(filtered);
+    }) 
+  })
+
+  
+  // build fullscreen modal on click
+  // const cards = document.querySelectorAll(".card-B");
+  // console.log(cards);
+  cardsVisible.forEach((card) => {
+    console.log("hier bin ich");
+    card.addEventListener("click", (e) => {
+      console.log("ID ist:", e.target.parentElement.parentElement.id)
+
+      const pilzId = e.target.parentElement.parentElement.id;
+      console.log("Alle Infos:", mushrooms[pilzId]);
+
+      buildModal(mushrooms[pilzId])
+    })
+  })
+}
+
+
 
 //////////////////////////////////////////////// hamburger menu  ////////////////////////////////////////////////
 
@@ -46,10 +110,10 @@ menuToggle.addEventListener("click", function () {
 //////////////////////////////////////////////// creating cards ////////////////////////////////////////////////
 
 function createCards(array) {
+  const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
+  MushroomCardGallery.innerHTML = "";
   for (let i = 0; i < array.length; i++) {
-    const MushroomCardGallery = document.getElementById(
-      "mushroom-card-gallery"
-    );
+
     const card = document.createElement("article");
     MushroomCardGallery.append(card);
     card.classList.add("card-B");
@@ -79,39 +143,17 @@ function createCards(array) {
     footer.append(description);
     description.innerText =
       "von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ")";
-    
-    // add #id
-    // card.id = array[i][0];
+
+    // add #id. With card.id = array[i][0] it would give the full id from the API. With only i we get the index of that extract.
     card.id = i;
-  } 
+  }
 }
 
 
 //////////////////////////////////////////////// filling detail page  ////////////////////////////////////////////////
 
-
-const addEvents = (pilze) => {
-  
-  const cards = document.querySelectorAll(".card-B")
-  cards.forEach((card) => {
-    card.addEventListener("click", (e) => {
-      console.log("ID ist:", e.target.parentElement.parentElement.id)
-
-      const pilzId = e.target.parentElement.parentElement.id;
-      console.log("Alle Infos:", pilze[pilzId]);
-
-      buildModal(pilze[pilzId])
-    })
-  })
-
-  const close = document.getElementById("close");
-  close.addEventListener("click", function () {
-    close.style.display = "none";
-    document.getElementById("modal").style.display = "none";
-  });
-}
-
 const buildModal = (blub) => {
+  console.log("test");
   document.getElementById("modal").style.display = "block";
   document.getElementById("close").style.display = "block";
   document.getElementById("modalImg").src = "https://www.pilzradar.de/" + blub[5];
@@ -125,7 +167,7 @@ const buildModal = (blub) => {
   document.getElementById("Bundesland").innerText = blub.Bundesland;
   document.getElementById("Funddatum").innerText = blub.Funddatum;
 }
-  
+
 
 
 ////// ALTE FUNKTIONEN ZUM ERSTELLEN DER DETAIL CARDS / MODALS
@@ -147,7 +189,7 @@ const buildModal = (blub) => {
 //     const img = document.createElement("img");
 //     modalImg.append(img);
 //     img.src = "https://www.pilzradar.de/" + array[i][5];
-    
+
 //     // add names
 //     const h1 = document.createElement("h1");
 //     modal.append(h1);
@@ -179,34 +221,28 @@ const buildModal = (blub) => {
 //     modal.append(description);
 //     description.innerText =
 //       "gefunden von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ") " + "am " + array[i][1];
-    
+
 //   }
 // }
-
-
-
 
 
 //////////////////////////////////////////////// creating tags ////////////////////////////////////////////////
 
 
 
-function createTags(array)
-{
+function createTags(array) {
   const verwendung = document.getElementById("verwendung");
   let set = new Set();
-  for (let i = 0; i < array.length; i++)
-  {
+  for (let i = 0; i < array.length; i++) {
     set = set.add(array[i].Verwendung);
   };
-  for (let item of set)
-  {
+  for (let item of set) {
     let tag = document.createElement("div");
     tag.classList.add("btn-tag");
     verwendung.append(tag);
     tag.innerText = item;
     tag.id = item;
-  } 
+  }
 }
 
 
@@ -221,7 +257,7 @@ function checkSpeisepilz(array) {
   if (array.Verwendung == "Speisepilz")
     return true;
   else
-    return false;  
+    return false;
 }
 
 function showOnlySpeisepilze(array) {
@@ -239,13 +275,51 @@ function showOnlySpeisepilze(array) {
 
 
 
-//////////////////////////////////////////////// accordion  ////////////////////////////////////////////////
+//////////////////////////////////////////////// wissen.html  ////////////////////////////////////////////////
+///////// accordion fills with content /////////
+
+
+function buildAccordion(array) {
+  const accContainer = document.getElementById("acc-container");
+  for (let i = 0; i < array.length; i++) {
+    const accordion = document.createElement("div");
+    accContainer.append(accordion);
+    accordion.classList.add("accordion");
+
+    const title = document.createElement("h2");
+    accordion.append(title);
+    title.innerText = array[i].Name;
+
+    Object.keys(array[i]).forEach(key => {
+      if (key !== "Name") {
+        const accItem = document.createElement("div");
+        accordion.append(accItem);
+        accItem.classList.add("acc-item");
+
+        const question = document.createElement("div");
+        accItem.append(question);
+        question.classList.add("question");
+        question.innerText = key;
+
+        const answer = document.createElement("div");
+        accItem.append(answer);
+        answer.classList.add("answer");
+        answer.innerText = array[i][key];
+      }
+    });
+  }
+}
+
+buildAccordion(pilzwissen);
+
+
+///////// accordion clickable /////////
 
 const accordion = document.getElementsByClassName('acc-item');
 
-for (i = 0; i < accordion.length; i++){
+for (i = 0; i < accordion.length; i++) {
 
-    accordion[i].addEventListener('click', function () {
-        this.classList.toggle('active')
-    })
-    }
+  accordion[i].addEventListener('click', function () {
+    this.classList.toggle('active')
+  })
+}
