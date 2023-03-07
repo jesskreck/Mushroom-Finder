@@ -4,7 +4,7 @@ function fetchMushrooms() {
       return response.json();
     })
     .then(function (result) {
-      // console.log(result);
+      console.log(result);
       controllerFunction(result);
 
       // ab hier testing
@@ -135,19 +135,19 @@ function createCards(array) {
 
 //////////////////////////////////////////////// filling detail page  ////////////////////////////////////////////////
 
-const buildModal = (blub) => {
+const buildModal = (pilz) => { 
   document.getElementById("modal").style.display = "block";
   document.getElementById("close").style.display = "block";
-  document.getElementById("modalImg").src = "https://www.pilzradar.de/" + blub[5];
-  document.getElementById("modalName").innerText = blub[2];
-  document.getElementById("modalNameLatin").innerText = blub[3];
-  document.getElementById("modalTagVerwendung").innerText = blub.Verwendung;
-  document.getElementById("modalTagVorkommen").innerText = blub.Vorkommen;
-  document.getElementById("modalTagBundesland").innerText = blub.Bundesland;
-  document.getElementById("Sammler").innerText = blub.Sammler;
-  document.getElementById("Landkreis").innerText = blub.Landkreis;
-  document.getElementById("Bundesland").innerText = blub.Bundesland;
-  document.getElementById("Funddatum").innerText = blub.Funddatum;
+  document.getElementById("modalImg").src = "https://www.pilzradar.de/" + pilz[5];
+  document.getElementById("modalName").innerText = pilz[2];
+  document.getElementById("modalNameLatin").innerText = pilz[3];pilz
+  document.getElementById("modalTagVerwendung").innerText = pilz.Verwendung;
+  document.getElementById("modalTagVorkommen").innerText = pilz.Vorkommen;
+  document.getElementById("modalTagBundesland").innerText = pilz.Bundesland;
+  document.getElementById("Sammler").innerText = pilz.Sammler;
+  document.getElementById("Landkreis").innerText = pilz.Landkreis;
+  document.getElementById("Bundesland").innerText = pilz.Bundesland;
+  document.getElementById("Funddatum").innerText = pilz.Funddatum;
 }
 
 
