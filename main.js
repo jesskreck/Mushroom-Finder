@@ -30,9 +30,8 @@ const controllerFunction = (mushrooms) => {
 
 
 const addEvents = (mushrooms) => {
+  const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
 
-  let cardsVisible = document.querySelectorAll(".card-B");
-  console.log("visible", cardsVisible);
 
   // close modal on click 
   const close = document.getElementById("close");
@@ -41,46 +40,25 @@ const addEvents = (mushrooms) => {
     document.getElementById("modal").style.display = "none";
   })
 
-  // filter Speisepilze
-  // const speisepilzFilter = document.getElementById("Speisepilz");
-  // speisepilzFilter.addEventListener("click", (event) => {
-  //   console.log(event.target.id);
-  //   const filtered = mushrooms.filter((mushroom) => {
-  //     return mushroom.Verwendung === event.target.id;
-  //   })
-  //   console.log(filtered);
-  //   createCards(filtered);
-  // })
-
   // filter btn-tag
   const btnTag = Array.from(document.getElementsByClassName("btn-tag"));
-  console.log(btnTag);
   btnTag.forEach((btn) => {
     btn.addEventListener("click", (event) => {
-      console.log(event.target.id);
       const filtered = mushrooms.filter((mushroom) => {
         return mushroom.Verwendung === event.target.id;
       })
-      console.log(filtered);
       createCards(filtered);
     }) 
   })
 
-  
+
   // build fullscreen modal on click
-  // const cards = document.querySelectorAll(".card-B");
-  // console.log(cards);
-  cardsVisible.forEach((card) => {
-    console.log("hier bin ich");
-    card.addEventListener("click", (e) => {
-      console.log("ID ist:", e.target.parentElement.parentElement.id)
-
+  MushroomCardGallery.addEventListener("click", (e) => {
+    if (e.target.classList.contains("card-B__img")) {
       const pilzId = e.target.parentElement.parentElement.id;
-      console.log("Alle Infos:", mushrooms[pilzId]);
-
-      buildModal(mushrooms[pilzId])
-    })
-  })
+      buildModal(mushrooms[pilzId]);
+    }
+  });
 }
 
 
@@ -95,17 +73,7 @@ menuToggle.addEventListener("click", function () {
   sidebar.classList.toggle("is-active");
 });
 
-//////////////////////////////////////////////// creating gallery with images  ////////////////////////////////////////////////
 
-// function createGallery(array) {
-//   const gallery = document.getElementById("gallery");
-//   for (let i = 0; i < array.length; i++) {
-//     const img = document.createElement("img");
-//     let imgURL = "https://www.pilzradar.de/" + array[i][5];
-//     img.setAttribute("src", imgURL);
-//     gallery.append(img);
-//   }
-// }
 
 //////////////////////////////////////////////// creating cards ////////////////////////////////////////////////
 
@@ -153,7 +121,6 @@ function createCards(array) {
 //////////////////////////////////////////////// filling detail page  ////////////////////////////////////////////////
 
 const buildModal = (blub) => {
-  console.log("test");
   document.getElementById("modal").style.display = "block";
   document.getElementById("close").style.display = "block";
   document.getElementById("modalImg").src = "https://www.pilzradar.de/" + blub[5];
@@ -244,31 +211,6 @@ function createTags(array) {
     tag.id = item;
   }
 }
-
-
-
-//////////////////////////////////////////////// filter  ////////////////////////////////////////////////
-
-
-
-
-
-function checkSpeisepilz(array) {
-  if (array.Verwendung == "Speisepilz")
-    return true;
-  else
-    return false;
-}
-
-function showOnlySpeisepilze(array) {
-  let Speisepilze = array.filter(checkSpeisepilz);
-  console.log("erfolg");
-  createCards(Speisepilze);
-}
-
-
-
-
 
 
 
