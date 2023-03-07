@@ -20,30 +20,36 @@
         </div>
 
         <aside class="sidebar">
-            <h3>Menü</h3>
-
-            <nav class="menu">
-                <a href="index.html" class="menu-item">Home</a>
-                <a href="wissen.html" class="menu-item is-active">Wissen</a>
-                <a href="pilzfunde.html" class="menu-item">Pilzfunde</a>
-                <a href="" class="menu-item">Sammelkorb</a>
-            </nav>
+            <div class="sidebar-content">
+                <h3>Menü</h3>
+                <nav class="menu">
+                    <a href="index.html" class="menu-item">Home</a>
+                    <a href="wissen.html" class="menu-item is-active">Wissen</a>
+                    <a href="pilzfunde.html" class="menu-item">Pilzfunde</a>
+                    <a href="" class="menu-item">Sammelkorb</a>
+                </nav>
+            </div>
         </aside>
 
 
-        <div class="main hero-full-BG">
+        <div class="main full-bg bg-a">
 
 
 
-
-            <div class="hero">
+            <div class="hero hero-text-only">
                 <h1>Wissen</h1>
+            </div>
+
+            <div class="search-field" id="search-field">
+                <input type="text" id="search-input" placeholder="Suchen...">
+                <button id="search-btn">Suchen</button>
+            </div>
+            <div id="error-message">Kein Suchbegriff gefunden!</div>
+
+            <div class="acc-container" id="acc-container">
 
 
-                <div class="acc-container" id="acc-container">
-
-
-                    <!-- EMPTY EXAMPLE FOR ACCORDION created by buildAccordion() in main.js
+                <!-- EMPTY EXAMPLE FOR ACCORDION created by buildAccordion() in main.js
                     <div class="accordion">
                         <h2>Accordion Title</h2>
                         <div class="acc-item">
@@ -83,9 +89,9 @@
 
 
 
-                </div>
             </div>
         </div>
+    </div>
 
 
     </div>

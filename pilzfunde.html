@@ -20,14 +20,15 @@
         </div>
 
         <aside class="sidebar">
-            <h3>Menü</h3>
-
-            <nav class="menu">
-                <a href="index.html" class="menu-item">Home</a>
-                <a href="wissen.html" class="menu-item">Wissen</a>
-                <a href="pilzfunde.html" class="menu-item is-active">Pilzfunde</a>
-                <a href="" class="menu-item">Sammelkorb</a>
-            </nav>
+            <div class="sidebar-content">
+                <h3>Menü</h3>
+                <nav class="menu">
+                    <a href="index.html" class="menu-item">Home</a>
+                    <a href="wissen.html" class="menu-item">Wissen</a>
+                    <a href="pilzfunde.html" class="menu-item is-active">Pilzfunde</a>
+                    <a href="" class="menu-item">Sammelkorb</a>
+                </nav>
+            </div>
         </aside>
 
 
@@ -37,18 +38,18 @@
 
         <div class="main">
 
-            <!-- testing this div for dark background behind modal -->
+            <!-- close-div contains dark background for modal. activated by buildModal() in main.js  -->
             <div class="close" id=close></div>
 
 
             <div class="hero hero-img-a">
                 <h1>Pilzfunde</h1>
+                <p>Sehen Sie sich die Funde Ihrer Pilzfreunde und -freundinnen an.</br>
+                    Über die Schaltflächen können Sie die Pilze nach Verwendung, Vorkommen und Bundesland filtern.</p>
             </div>
 
 
             <div class="container">
-                <p>Sehen Sie sich die Funde Ihrer Pilzfreunde und -freundinnen an. Über die Schaltflächen können Sie die
-                    Pilze nach Verwendung, Vorkommen und Bundesland filtern.</p>
                 <h3>Verwendung</h3>
                 <div class="tag-holder" id="verwendung">
                 </div>
@@ -87,7 +88,7 @@
 
         </div>
 
-        <!-- EMPTY EXAMPLE FOR FULLSCREEN MODAL created by buildDetailsPage() in main.js -->
+        <!-- modal with detail information. first display:none, activated by buildDetailsPage() in main.js -->
 
         <article class="modal" id="modal">
             <div class="modal__img">

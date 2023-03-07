@@ -44,10 +44,25 @@ const addEvents = (mushrooms) => {
   const btnTag = Array.from(document.getElementsByClassName("btn-tag"));
   btnTag.forEach((btn) => {
     btn.addEventListener("click", (event) => {
-      const filtered = mushrooms.filter((mushroom) => {
-        return mushroom.Verwendung === event.target.id;
-      })
-      createCards(filtered);
+      
+      if (event.target.classList.contains("is-active")) {
+        event.target.classList.remove("is-active");
+        createCards(mushrooms);
+      } else {
+        // remove "is-active" class from all buttons
+        btnTag.forEach((btn) => {
+          btn.classList.remove("is-active");
+        })
+        event.target.classList.add("is-active");
+        // add "is-active" on clicked button. doesnt matter if you write btn.class... or event.target.class...
+        event.target.classList.add("is-active");
+
+        // save filtered mushrooms in variable to create new gallery
+        const filtered = mushrooms.filter((mushroom) => {
+          return mushroom.Verwendung === event.target.id;
+        })
+        createCards(filtered);
+        }
     }) 
   })
 
@@ -257,11 +272,59 @@ buildAccordion(pilzwissen);
 
 ///////// accordion clickable /////////
 
-const accordion = document.getElementsByClassName('acc-item');
+const accItems = document.getElementsByClassName('acc-item');
 
-for (i = 0; i < accordion.length; i++) {
 
-  accordion[i].addEventListener('click', function () {
+
+for (i = 0; i < accItems.length; i++) {
+
+  accItems[i].addEventListener('click', function () {
     this.classList.toggle('active')
   })
 }
+
+///////// search function /////////
+
+const searchBtn = document.getElementById("search-btn");
+const searchInput = document.getElementById("search-input");
+
+
+function search() {
+  // resetting previous search - is there an easier way?
+  let regExp = "";
+  let matchFound = false;
+  for (i = 0; i < accItems.length; i++) {
+    if (accItems[i].lastChild.innerHTML.match(regExp)) {
+      accItems[i].lastChild.innerHTML = accItems[i].lastChild.textContent.replace(regExp, "<mark>$&</mark>");
+      accItems[i].classList.remove('active');
+    };
+  }
+
+  // save new search term
+  let input = document.getElementById("search-input").value;
+
+  // add markup and open item
+  if (input !== "") {
+    regExp = new RegExp(input, 'gi');
+    for (i = 0; i < accItems.length; i++) {      
+      if (accItems[i].lastChild.innerHTML.match(regExp)) {
+        accItems[i].lastChild.innerHTML = accItems[i].lastChild.textContent.replace(regExp, "<mark>$&</mark>");
+        accItems[i].classList.add('active');
+        matchFound = true;
+      }
+    }
+  }
+
+  if (!matchFound) {
+    const searchField = document.getElementById("search-field");
+    
+  }
+};
+
+// call search() with button and enter-key
+searchBtn.addEventListener("click", search);
+searchInput.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    search();
+  }
+});
