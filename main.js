@@ -4,12 +4,8 @@ function fetchMushrooms() {
       return response.json();
     })
     .then(function (result) {
-      console.log(result);
+      console.log("Fetch result:", result);
       controllerFunction(result);
-
-      // ab hier testing
-      // buildDetailsPage(result);
-      // checkSpeisepilz(result);
     })
     .catch(function (error) {
       console.log(error);
@@ -22,16 +18,18 @@ fetchMushrooms();
 
 //////////////////////////////////////////////// Controller & Events ////////////////////////////////////////////////
 
+const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
+
+
 const controllerFunction = (mushrooms) => {
   createCards(mushrooms);
   createTags(mushrooms);
   addEvents(mushrooms);
+  // giveCardID(mushrooms);
 }
 
 
 const addEvents = (mushrooms) => {
-  const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
-
 
   // close modal on click 
   const close = document.getElementById("close");
@@ -71,6 +69,7 @@ const addEvents = (mushrooms) => {
   MushroomCardGallery.addEventListener("click", (e) => {
     if (e.target.classList.contains("card-B__img")) {
       const pilzId = e.target.parentElement.parentElement.id;
+      console.log(e.target.parentElement.parentElement.id); 
       buildModal(mushrooms[pilzId]);
     }
   });
@@ -80,10 +79,11 @@ const addEvents = (mushrooms) => {
 
 //////////////////////////////////////////////// hamburger menu  ////////////////////////////////////////////////
 
-const menuToggle = document.querySelector(".menu-toggle");
-const sidebar = document.querySelector(".sidebar");
+
 
 menuToggle.addEventListener("click", function () {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const sidebar = document.querySelector(".sidebar");
   menuToggle.classList.toggle("is-active");
   sidebar.classList.toggle("is-active");
 });
@@ -93,7 +93,6 @@ menuToggle.addEventListener("click", function () {
 //////////////////////////////////////////////// creating cards ////////////////////////////////////////////////
 
 function createCards(array) {
-  const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
   MushroomCardGallery.innerHTML = "";
   for (let i = 0; i < array.length; i++) {
 
@@ -129,8 +128,16 @@ function createCards(array) {
 
     // add #id. With card.id = array[i][0] it would give the full id from the API. With only i we get the index of that extract.
     card.id = i;
+    }
   }
-}
+
+
+// function giveCardID(array) {
+//   for (let i = 0; i < array.length; i++) {
+//     const card = document.createElement("article");
+//         card.id = i;
+//   }
+// }
 
 
 //////////////////////////////////////////////// filling detail page  ////////////////////////////////////////////////
@@ -274,14 +281,13 @@ buildAccordion(pilzwissen);
 
 const accItems = document.getElementsByClassName('acc-item');
 
-
-
 for (i = 0; i < accItems.length; i++) {
 
   accItems[i].addEventListener('click', function () {
     this.classList.toggle('active')
   })
 }
+
 
 ///////// search function /////////
 
@@ -315,6 +321,7 @@ function search() {
     }
   }
 
+  // TBA error message
   if (!matchFound) {
     const searchField = document.getElementById("search-field");
     
@@ -323,6 +330,7 @@ function search() {
 
 // call search() with button and enter-key
 searchBtn.addEventListener("click", search);
+
 searchInput.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
     search();
