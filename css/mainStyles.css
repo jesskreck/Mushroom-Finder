@@ -49,11 +49,11 @@ p :not(.modal) {
 }
 
 .bg-a{
-    background-image: url(img/pexels-mushrooms.jpg);
+    background-image: url(/img/pexels-mushrooms.jpg);
 }
 
 .bg-b{
-    background-image: url(img/pexels-kristina-paukshtite-5429056.jpg);
+    background-image: url(/img/pexels-kristina-paukshtite-5429056.jpg);
 }
 
 
@@ -114,13 +114,13 @@ p :not(.modal) {
 .hero-img-a {
     height: 50vh;
     min-height: 400px;
-    background-image: url(img/pexels-johannes-plenio-1118865.jpg);
+    background-image: url(/img/pexels-johannes-plenio-1118865.jpg);
     background-position: bottom;
 }
 
 .hero-img-b {
     height: 50vh;
-    background-image: url(img/pexels-mushrooms.jpg);
+    background-image: url(/img/pexels-mushrooms.jpg);
     background-position: center;
 }
 
@@ -479,13 +479,13 @@ mark {
 }
 
 .modal h1 {
-    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-size: clamp(2rem, 3.5vw, 2rem);
     padding-left: 2rem;
     margin-bottom: 0;
 }
 
 .modal h3 {
-    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(1rem, 2vw, 1.1rem);
     padding: 0 2rem 1rem;
 }
 

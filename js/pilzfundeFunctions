@@ -1,0 +1,143 @@
+const loadPilzfundePage = (mushrooms) => {
+    createCards(mushrooms);
+    buildModal(mushrooms);
+    addEvents(mushrooms);
+}
+
+
+
+const addEvents = (mushrooms) => {
+
+  // close modal on click 
+  const close = document.getElementById("close");
+  close.addEventListener("click", function () {
+    close.style.display = "none";
+    document.getElementById("modal").style.display = "none";
+  })
+
+  // filter btn-tag
+  const btnTag = Array.from(document.getElementsByClassName("btn-tag"));
+  btnTag.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      
+      if (event.target.classList.contains("is-active")) {
+        event.target.classList.remove("is-active");
+        createCards(mushrooms);
+      } else {
+        // remove "is-active" class from all buttons
+        btnTag.forEach((btn) => {
+          btn.classList.remove("is-active");
+        })
+        event.target.classList.add("is-active");
+        // add "is-active" on clicked button. doesnt matter if you write btn.class... or event.target.class...
+        event.target.classList.add("is-active");
+
+        // save filtered mushrooms in variable to create new gallery
+        const filtered = mushrooms.filter((mushroom) => {
+          return mushroom.Verwendung === event.target.id;
+        })
+        createCards(filtered);
+        }
+    }) 
+  })
+
+
+  // build fullscreen modal on click
+  const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
+  MushroomCardGallery.addEventListener("click", (e) => {
+    if (e.target.classList.contains("card-B__img")) {
+      const pilzId = e.target.parentElement.parentElement.id;
+      console.log(e.target.parentElement.parentElement.id); 
+      buildModal(mushrooms[pilzId]);
+    }
+  });
+}
+
+
+
+//////////////////////////////////////////////// creating cards ////////////////////////////////////////////////
+
+function createCards(array) {
+  const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
+  MushroomCardGallery.innerHTML = "";
+  for (let i = 0; i < array.length; i++) {
+
+    const card = document.createElement("article");
+    MushroomCardGallery.append(card);
+    card.classList.add("card-B");
+
+    // create header
+    const header = document.createElement("div");
+    card.append(header);
+    header.classList.add("card-B__HEADER");
+
+    // set database image as background image
+    const a = document.createElement("a");
+    card.append(a);
+    const cardImage = document.createElement("div");
+    a.append(cardImage);
+    cardImage.classList.add("card-B__img");
+    let imgURL = "https://www.pilzradar.de/" + array[i][5];
+    cardImage.style.cssText += `background-image:url(${imgURL})`;
+
+    // fill footer with details
+    const footer = document.createElement("div");
+    card.append(footer);
+    footer.classList.add("card-B__FOOTER");
+    const name = document.createElement("h2");
+    footer.append(name);
+    name.innerText = array[i][2];
+    const description = document.createElement("div");
+    footer.append(description);
+    description.innerText =
+      "von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ")";
+
+    // add #id. With card.id = array[i][0] it would give the full id from the API. With only i we get the index of that extract.
+    card.id = i;
+    }
+  }
+
+
+// function giveCardID(array) {
+//   for (let i = 0; i < array.length; i++) {
+//     const card = document.createElement("article");
+//         card.id = i;
+//   }
+// }
+
+
+
+
+//////////////////////////////////////////////// filling big modal with details  ////////////////////////////////////////////////
+
+const buildModal = (pilz) => { 
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("close").style.display = "block";
+  document.getElementById("modalImg").src = "https://www.pilzradar.de/" + pilz[5];
+  document.getElementById("modalName").innerText = pilz[2];
+  document.getElementById("modalNameLatin").innerText = pilz[3];pilz
+  document.getElementById("modalTagVerwendung").innerText = pilz.Verwendung;
+  document.getElementById("modalTagVorkommen").innerText = pilz.Vorkommen;
+  document.getElementById("modalTagBundesland").innerText = pilz.Bundesland;
+  document.getElementById("Sammler").innerText = pilz.Sammler;
+  document.getElementById("Landkreis").innerText = pilz.Landkreis;
+  document.getElementById("Bundesland").innerText = pilz.Bundesland;
+  document.getElementById("Funddatum").innerText = pilz.Funddatum;
+}
+
+
+
+function createTags(mushrooms) {
+  const verwendung = document.getElementById("verwendung");
+  let set = new Set();
+  for (let i = 0; i < mushrooms.length; i++) {
+    set = set.add(mushrooms[i].Verwendung);
+  };
+  for (let item of set) {
+    let tag = document.createElement("div");
+    tag.classList.add("btn-tag");
+    verwendung.append(tag);
+    tag.innerText = item;
+    tag.id = item;
+  }
+}
