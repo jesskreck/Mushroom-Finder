@@ -6,7 +6,6 @@ function fetchMushrooms() {
     .then(function (result) {
       console.log("Fetch result:", result);
       controllerFunction(result);
-      loadPilzfundePage(result);
     })
     .catch(function (error) {
       console.log(error);
@@ -14,7 +13,6 @@ function fetchMushrooms() {
 }
 
 fetchMushrooms();
-loadWissenPage(pilzwissen);
 
 
 
@@ -25,6 +23,12 @@ loadWissenPage(pilzwissen);
 const controllerFunction = (mushrooms) => {
   toggleMenu(mushrooms);
 }
+
+// for comparison - here as function declaration:
+// function controllerFunction(mushrooms) {
+//   toggleMenu(mushrooms);
+// }
+ 
 
 
 function toggleMenu() {
