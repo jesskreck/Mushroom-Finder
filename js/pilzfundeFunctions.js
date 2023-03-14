@@ -18,13 +18,13 @@ fetchMushrooms();
 const controllerFunctionPF = (mushrooms) => {
   createCards(mushrooms);
   createTags(mushrooms);
-}
+};
 
 const addEventsOnPF = (mushrooms) => {
   closeModal(mushrooms);
   filterWithTags(mushrooms);
   openModal(mushrooms);
-}
+};
 
 function createCards(array) {
   const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
@@ -60,17 +60,18 @@ function createCards(array) {
     footer.append(description);
     description.innerText =
       "von " + array[i][9] + " in " + array[i][6] + " (" + array[i][4] + ")";
-
-    // add #id. With card.id = array[i][0] it would give the full id from the API. With only i we get the index of that extract.
-    card.id = i;
-  }
+    
+    // give ID. note: ID is added to cardImage because user is actually clicking on cardImage-div and not on card-div 
+    cardImage.id = array[i].id;
+  };
 }
+
 
 function closeModal() {
   // close modal on click
   const close = document.getElementById("close");
   close.addEventListener("click", () => {
-    displayNone()
+    displayNone();
   });
 
   function displayNone() {
@@ -96,7 +97,7 @@ function createTags(mushrooms) {
 }
 
 function filterWithTags(mushrooms) {
-  // activate each tag button 
+  // activate each tag button
   const btnTag = Array.from(document.getElementsByClassName("btn-tag"));
   btnTag.forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -117,13 +118,31 @@ function filterWithTags(mushrooms) {
           return mushroom.Verwendung === event.target.id;
         });
         createCards(filtered);
+        console.log(filtered);
       }
     });
   });
 }
 
 function openModal(mushrooms) {
-  // fill fullscreen modal with details
+  // open modal on click
+  const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
+  MushroomCardGallery.addEventListener("click", (card) => {
+    
+    // if clicked element on screen is a card...
+    if (card.target.querySelectorAll("card-B__img")) {
+      // console.log(mushrooms);
+      // console.log("clicked card id:", card.target.id);
+
+      // safe the clicked card as new array that we can pass to fillModalDetails function! 
+      const clickedCard = mushrooms.find(({ id }) => id === Number(card.target.id));
+      console.log(clickedCard);
+      fillModalDetails(clickedCard);
+    }
+  });
+  
+ 
+  // fill fullscreen modal with details for clickedCard
   function fillModalDetails(mushroom) {
     document.getElementById("modal").style.display = "block";
     document.getElementById("close").style.display = "block";
@@ -138,15 +157,4 @@ function openModal(mushrooms) {
     document.getElementById("Bundesland").innerText = mushroom.Bundesland;
     document.getElementById("Funddatum").innerText = mushroom.Funddatum;
   };
-
-  // open modal on click
-  const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
-  MushroomCardGallery.addEventListener("click", (e) => {
-    if (e.target.classList.contains("card-B__img")) {
-      const pilzId = e.target.parentElement.parentElement.id;
-      // console.log(e.target.parentElement.parentElement.id);
-      fillModalDetails(mushrooms[pilzId]);
-    }
-  });
 }
-
