@@ -136,7 +136,6 @@ function openModal(mushrooms) {
 
       // safe the clicked card as new array that we can pass to fillModalDetails function! 
       const clickedCard = mushrooms.find(({ id }) => id === Number(card.target.id));
-      console.log(clickedCard);
       fillModalDetails(clickedCard);
     }
   });
