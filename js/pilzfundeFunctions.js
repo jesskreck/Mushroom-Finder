@@ -1,19 +1,24 @@
-function fetchMushrooms() {
-  fetch("https://www.pilzradar.de/api/prRestAPIv3-JessicaKrecker-pilzradar.php")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (result) {
-      console.log("Fetch result:", result);
-      controllerFunctionPF(result);
-      addEventsOnPF(result);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
+//////////////////// Option 1: Fetch
 
-fetchMushrooms();
+// function fetchMushrooms() {
+//   fetch("https://www.pilzradar.de/api/prRestAPIv3-JessicaKrecker-pilzradar.php")
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (result) {
+//       console.log("Fetch result:", result);
+//       controllerFunctionPF(result);
+//       addEventsOnPF(result);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
+
+// fetchMushrooms();
+
+////////////////////// leave controller and addEvents untouched on both options
+
 
 const controllerFunctionPF = (mushrooms) => {
   createCards(mushrooms);
@@ -25,6 +30,22 @@ const addEventsOnPF = (mushrooms) => {
   filterWithTags(mushrooms);
   openModal(mushrooms);
 };
+
+
+////////////////////// Option 2: Local Data
+
+
+const loadPilzfundePage = (mushrooms) => {
+  controllerFunctionPF(mushrooms);
+  addEventsOnPF(mushrooms);
+}
+
+loadPilzfundePage(pilzsammlung);
+
+
+////////////////////// rest of functions
+
+
 
 function createCards(array) {
   const MushroomCardGallery = document.getElementById("mushroom-card-gallery");
@@ -141,6 +162,7 @@ function openModal(mushrooms) {
   });
   
  
+
   // fill fullscreen modal with details for clickedCard
   function fillModalDetails(mushroom) {
     document.getElementById("modal").style.display = "block";
